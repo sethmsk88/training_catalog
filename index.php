@@ -46,7 +46,7 @@
     <script src="/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Included Scripts -->
-    <script src="./scripts/main.js"></script>
+    <script src="./js/main.js"></script>
     <script src="/bootstrap/scripts/DataTables-1.10.7/media/js/jquery.datatables.js"></script>
     <script src="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
   </head>
