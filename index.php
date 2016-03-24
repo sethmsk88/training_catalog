@@ -77,7 +77,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><?php echo $APP_appName; ?></a>
+                <a class="navbar-brand" href="#"><?= $APP_appName ?></a>
             </div>
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <!-- Nav links -->
@@ -85,50 +85,11 @@
                     <li id="homepage-link">
                         <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
                     </li>
-
-                    <?php
-                    if ($loggedIn) {
-                    ?>
-                    <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Job Spec</a></li>
-                    <?php
-                    }
-                    ?>
-
-                    <?php
-                        /*
-                            Only show these links when on page "jobSpec_details"
-                        */
-                        if (isset($_GET['page'])) {
-                            if (strpos($_GET['page'], "jobSpec_details") !== false) {
-                    ?>
-                                <li><a id="navLink-details" href="?page=jobSpec_details">Job Spec Details</a></li>
-
-                                <?php
-                                if ($loggedIn) {
-                                ?>
-                                <li><a id="navLink-detailsEdit" href="?page=jobSpec_details">Edit Job Spec</a></li>
-                                <?php
-                                }
-                                ?>
-                    <?php
-                            }
-                        }
-                    ?>
+                    <li id="catalogAdmin-link">
+                        <?php echo '<a id="navLink-catalogAdmin" href="./?page=catalog_admin">Admin</a>'; ?>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if ($loggedIn) { ?>
-                    <li class="dropdown" style="cursor:pointer;">
-                        <a herf="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><?php echo $_SESSION['firstName']; ?> <span class="glyphicon glyphicon-triangle-bottom" style="margin-left:4px;"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a id="settings-link" href="?page=settings">Settings</a>
-                            </li>
-                            <li>
-                                <a id="logout-link" href="./content/act_logout.php"> Log out</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <?php } else { ?>
                     <li>
                         <div class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Log in</a>
@@ -139,7 +100,6 @@
                             </ul>
                         </div>
                     </li>
-                    <?php } ?>
                 </ul>
             </div>
 
@@ -187,43 +147,15 @@
                 <?php
                     }
                 ?>
-                
-
             </script>
-
-            <script>
-                /*
-                    If current page is jobSpec_details page,
-                    modify navbar links to include Job Code.
-                */
-                if ($.urlParam('page') == 'jobSpec_details') {
-                    $('#navLink-details').attr('href', '?page=jobSpec_details&jc=' + $.urlParam('jc'));
-                    $('#navLink-detailsEdit').attr('href', '?page=jobSpec_details&jc=' + $.urlParam('jc') + '&edit=1');
-                }
-
-                /*
-                    If URL var pp exists, add it to the "Job Spec Details" and
-                    "Edit Job Spec" links.
-                */
-                if ($.urlParam('pp') !== null) {
-                    $('#navLink-details').attr('href',
-                        $('#navLink-details').attr('href') + 
-                        '&pp=' + $.urlParam('pp')
-                    );
-
-                    $('#navLink-detailsEdit').attr('href',
-                        $('#navLink-detailsEdit').attr('href') + 
-                        '&pp=' + $.urlParam('pp')
-                    );
-                }
-            </script>
-
         </div>
     </nav>
 
     <?php
 
-        // If a page variable exists, include the page
+        /**************************/
+        /* Include Requested Page */
+        /**************************/
         if (isset($_GET["page"])){
             $filePath = './content/' . $_GET["page"] . '.php';
         }

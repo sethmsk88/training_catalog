@@ -1,0 +1,32 @@
+.loginForm {
+	border-radius: 4px;
+	padding: 10px 10px 8px 10px;
+	background-color: #EFEFEF;
+	line-height: 3em;
+	display: block;
+	z-index:1001;
+	box-shadow: 0px 0px 3px #888888;
+	width: 225px;
+	position: absolute;
+}
+
+#login-container input[type=submit],
+#login-container button{
+	width: 100%;
+}
+
+.login-msg:focus{
+	outline: none;
+}
+
+/** CSS to make dropdown look correct in nav-bar **/
+.navbar-nav > li > .dropdown > a {
+	padding: 15px;
+	color: #fff;
+	display: block;
+}
+.nav .open > a, .nav .open > a:focus,
+.nav .open > a:hover {
+    background-color: #b1441d;
+    text-decoration: none;
+}
