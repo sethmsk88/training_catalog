@@ -16,12 +16,6 @@
 		ORDER BY CategoryName
 	";
 
-	// Insert course category
-	/*$ins_course_category = "
-		INSERT INTO training_course_has_category (Course_ID, Category_ID)
-		VALUES (?,?)
-	";*/
-
 	// Prepare and run queries
 	$stmt = $conn->prepare($sel_all_courses);
 	$stmt->execute();
@@ -54,7 +48,11 @@
 
 			<div class="row">
 				<div class="col-lg-5 form-group">
-					<select id="course_1" class="form-control">
+					<select
+						name="course_1"
+						id="course_1"
+						class="form-control">
+
 						<option value="none">Select a course</option>
 						<?php
 						while ($row = $courses_result->fetch_assoc()) {
@@ -65,7 +63,11 @@
 				</div>
 
 				<div class="col-lg-5 form-group">
-					<select id="category" class="form-control">
+					<select
+						name="category"
+						id="category"
+						class="form-control">
+
 						<option value="none">Select a category</option>
 						<?php
 						while ($row = $categories_result->fetch_assoc()) {
@@ -76,15 +78,17 @@
 				</div>
 
 				<div class="col-lg-2 form-group">
-					<button
+					<input
+						type="submit"
 						id="categoryCourse-submit-btn"
-						type="button"
-						class="btn btn-primary btn-fill">
-						Submit
-					</button>
+						class="btn btn-primary btn-fill"
+						value="Submit">
 				</div>
 			</div>
 		</form>
+
+		<!-- To be filled with response from form submission -->
+		<div id="assignCategoryToCourse-response"></div>
 	</div>
 
 
