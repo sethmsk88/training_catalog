@@ -9,6 +9,17 @@
 		ORDER BY CourseName
 	";
 
+	// Select all courses with categories
+	$sel_all_courses_categories = "
+		SELECT a.*, c.ID Category_ID, c.CategoryName
+		FROM hrodt.training_course AS a
+		LEFT JOIN hrodt.training_course_has_category AS b
+			ON a.ID = b.Course_ID
+		JOIN hrodt.training_category AS c
+			ON b.Category_ID = c.ID
+		ORDER BY a.CourseName
+	";
+
 	// Select all categories
 	$sel_all_categories = "
 		SELECT *
@@ -24,6 +35,10 @@
 	$stmt = $conn->prepare($sel_all_categories);
 	$stmt->execute();
 	$categories_result = $stmt->get_result();
+
+	$stmt = $conn->prepare($sel_all_courses_categories);
+	$stmt->execute();
+	$courses_categories_result = $stmt->get_result();
 ?>
 
 <!-- Include js file for this page -->
@@ -88,8 +103,36 @@
 		</form>
 
 		<!-- To be filled with response from form submission -->
-		<div id="assignCategoryToCourse-response"></div>
+		<div class="row">
+			<div class="col-lg-8">
+				<div id="assignCategoryToCourse-response"></div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Display all Category and Course associations -->
+				<table class="table table-striped table-bordered">
+					<tr>
+						<th>Course Name</th>
+						<th>Category</th>
+					</tr>
+				<?php
+				while ($row = $courses_categories_result->fetch_assoc()) {
+				?>
+					<tr>
+						<td><?= $row['CourseName'] ?></td>
+						<td><?= $row['CategoryName'] ?></td>
+					</tr>
+				<?php
+				}
+				?>
+				</table>
+			</div>
+		</div>
 	</div>
+
+	
 
 
 	<!-- Create form for giving groups classes -->
