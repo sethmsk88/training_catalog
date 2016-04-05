@@ -53,103 +53,107 @@
   <body>
     <!-- Google Analytics Tracking -->
     <?php include_once($_SERVER['DOCUMENT_ROOT'] . "\bootstrap\apps\shared\analyticstracking.php") ?>
-
-    <?php
-        // Include FAMU logo header
-        include "../templates/header_3.php";
-    ?>
-
-    <!-- Nav Bar -->
-    <nav
-        id="pageNavBar"
-        class="navbar navbar-default navbar-custom1 navbar-static-top"
-        role="navigation"
-        >
+    
+    <!-- Fixed Header -->
+    <div class="fixed-header-container">
         <div class="container">
-            <div class="navbar-header">
-                <button
-                    type="button"
-                    class="navbar-toggle"
-                    data-toggle="collapse"
-                    data-target="#navbarCollapse"
-                    >
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><?= $APP_appName ?></a>
-            </div>
-            <div id="navbarCollapse" class="collapse navbar-collapse">
-                <!-- Nav links -->
-                <ul class="nav navbar-nav">
-                    <li id="homepage-link">
-                        <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
-                    </li>
-                    <li id="catalogAdmin-link">
-                        <?php echo '<a id="navLink-catalogAdmin" href="./?page=catalog_admin">Admin</a>'; ?>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <div class="dropdown">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Log in</a>
-                            <ul class="dropdown-menu" style="padding:0px;">
-                                <li>
-                                    <?php include_once './includes/inc_login_form.php'; ?>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <script>
-                // Check to see which page is active by getting url page var (use PHP).
-                <?php 
-                    if (isset($_GET['page'])) {
-                ?>
-                        // Loop through each link to see which one matches the current page
-                        $('a[id^=navLink-]').each(function() {
-
-                            // If link has same page variable as current page
-                            if ($(this).attr('href').indexOf($.urlParam('page')) >= 0) {
-
-                                // Remove 'active' class from all navlinks
-                                $('a[id^=navLink-]').each(function() {
-                                    $(this).parent().removeClass('active');
-                                });
-
-                                /*
-                                    Distinguish between the details page and the details page with the edit flag when marking the navLinks with the 'active' class.
-                                */
-                                if ($.urlParam('page') == 'jobSpec_details' && $.urlParam('edit') == 1) {
-                                    $('#navLink-detailsEdit').parent().addClass('active');
-                                }
-                                else if ($.urlParam('page') == 'jobSpec_details') {
-                                    $('#navLink-details').parent().addClass('active');
-                                }
-                                else {
-                                    $(this).parent().addClass('active');
-                                }
-                            }
-                        });
-                <?php      
-                    }
-                    else {
-                ?>
-                        // Remove 'active' class from all navlinks
-                        $('a[id^=navLink-]').each(function() {
-                            $(this).parent().removeClass('active');
-                        });
-
-                        // Add 'active' class to homepage link
-                        $('#homepage-link').addClass('active');
-                <?php
-                    }
-                ?>
-            </script>
+            <img id="famuLogo" src="/bootstrap/images/famulogo2014.png" alt="" style="padding-bottom:2px;padding-left:95px;"/>
         </div>
-    </nav>
+
+        <!-- Nav Bar -->
+        <nav
+            id="pageNavBar"
+            class="navbar navbar-default navbar-custom1"
+            role="navigation"
+            style="margin-bottom:0;">
+
+            <div class="container">
+                <div class="navbar-header">
+                    <button
+                        type="button"
+                        class="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target="#navbarCollapse"
+                        >
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><?= $APP_appName ?></a>
+                </div>
+                <div id="navbarCollapse" class="collapse navbar-collapse">
+                    <!-- Nav links -->
+                    <ul class="nav navbar-nav">
+                        <li id="homepage-link">
+                            <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
+                        </li>
+                        <li id="catalogAdmin-link">
+                            <?php echo '<a id="navLink-catalogAdmin" href="./?page=catalog_admin">Admin</a>'; ?>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Log in</a>
+                                <ul class="dropdown-menu" style="padding:0px;">
+                                    <li>
+                                        <?php include_once './includes/inc_login_form.php'; ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <script>
+                    // Check to see which page is active by getting url page var (use PHP).
+                    <?php 
+                        if (isset($_GET['page'])) {
+                    ?>
+                            // Loop through each link to see which one matches the current page
+                            $('a[id^=navLink-]').each(function() {
+
+                                // If link has same page variable as current page
+                                if ($(this).attr('href').indexOf($.urlParam('page')) >= 0) {
+
+                                    // Remove 'active' class from all navlinks
+                                    $('a[id^=navLink-]').each(function() {
+                                        $(this).parent().removeClass('active');
+                                    });
+
+                                    /*
+                                        Distinguish between the details page and the details page with the edit flag when marking the navLinks with the 'active' class.
+                                    */
+                                    if ($.urlParam('page') == 'jobSpec_details' && $.urlParam('edit') == 1) {
+                                        $('#navLink-detailsEdit').parent().addClass('active');
+                                    }
+                                    else if ($.urlParam('page') == 'jobSpec_details') {
+                                        $('#navLink-details').parent().addClass('active');
+                                    }
+                                    else {
+                                        $(this).parent().addClass('active');
+                                    }
+                                }
+                            });
+                    <?php      
+                        }
+                        else {
+                    ?>
+                            // Remove 'active' class from all navlinks
+                            $('a[id^=navLink-]').each(function() {
+                                $(this).parent().removeClass('active');
+                            });
+
+                            // Add 'active' class to homepage link
+                            $('#homepage-link').addClass('active');
+                    <?php
+                        }
+                    ?>
+                </script>
+            </div>
+        </nav>
+    </div>
+    <div class="fixed-header-spacer"></div>
 
     <?php
 
@@ -170,5 +174,8 @@
 			echo '<h2>404 Error</h2>Page does not exist';
 		}
     ?>
-  </body>
+
+    <!-- Footer -->
+    <?php include "../templates/footer_1.php"; ?>
+</body>
 </html>

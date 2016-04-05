@@ -1,3 +1,5 @@
+<link href="./css/catalog.css" rel="stylesheet">
+
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
 
@@ -52,7 +54,9 @@ $courses_result = $stmt->get_result();
 				?>
 			</ul>
 
-			<h3>Group</h3>
+			<div class="divider"></div>
+
+			<h3 style="margin-top:10px;">Group</h3>
 			<ul class="list-unstyled">
 				<?php
 					// Create list items for each gruop
@@ -67,18 +71,25 @@ $courses_result = $stmt->get_result();
 		<div class="col-lg-10">
 			<div class="row">
 				<div class="col-lg-12">
-					<h3>Training Courses</h3>
+					<h2>Training Courses</h2>
 				</div>
 			</div>
+			<br />
 			<?php
 				// Display all courses
+				while ($row = $courses_result->fetch_assoc()) {
 			?>
 			<div class="row">
 				<div class="col-lg-12">
-					<h4>Course 1</h4>
-					Course description......
+					<div class="course-container">
+						<h4><?= $row['CourseName'] ?></h4>
+						<?= $row['CourseDescr'] ?>
+					</div>
 				</div>
 			</div>
+			<?php
+				}
+			?>
 		</div>
 	</div>
 </div>

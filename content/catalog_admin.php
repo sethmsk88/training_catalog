@@ -69,6 +69,7 @@
 
 <!-- Include js file for this page -->
 <script src="./js/catalog_admin.js"></script>
+<br />
 
 <div class="container" style="padding-bottom:10em;">
 	<div class="form-container">
