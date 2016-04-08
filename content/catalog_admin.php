@@ -69,18 +69,139 @@
 
 <!-- Include js file for this page -->
 <script src="./js/catalog_admin.js"></script>
+
 <br />
 
 <div class="container" style="padding-bottom:10em;">
+	
 	<div class="form-container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h4>Add Course</h4>
+			</div>
+		</div>
 
+		<!-- Add Course Form -->
+		<form
+			name="addCourse-form"
+			id="addCourse-form"
+			role="form"
+			method="post"
+			action="">
+
+			<!-- Course Code Input -->
+			<div class="row">
+				<div class="col-lg-4 form-group">
+					<input
+						name="courseCode"
+						type="text"
+						class="form-control"
+						placeholder="Course Code">
+				</div>
+			</div>
+
+			<!-- Course Name Input -->
+			<div class="row">
+				<div class="col-lg-12 form-group">
+					<input
+						name="courseName"
+						type="text"
+						class="form-control"
+						placeholder="Course Name">
+				</div>
+			</div>
+
+			<!-- Course Description Input -->
+			<div class="row">
+				<div class="col-lg-12 form-group">
+					<textarea
+						name="courseDescr"
+						class="form-control"
+						rows="8"
+						placeholder="Course Description"></textarea>
+				</div>
+			</div>
+
+			<!-- Online Select Box -->
+			<div class="row">
+				<div class="col-lg-4 form-group">
+					<select name="online" class="form-control">
+						<option value="">Course Type</option>
+						<option value="0">Offline Course</option>
+						<option value="1">Online Course</option>
+					</select>
+				</div>
+			</div>
+
+			<!-- Add Course Submit Button -->
+			<div class="row">
+				<div class="col-lg-2 form-group">
+					<input
+						type="submit"
+						id="addCourse-submit-btn"
+						class="btn btn-primary btn-fill"
+						value="Submit">
+				</div>
+			</div>
+		</form>
+
+		<!-- To be filled with response from form submission -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="addCourse-response"></div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Display all Courses -->
+				<table class="table table-striped table-bordered data-table">
+					<thead>
+						<tr>
+							<th>Course Code</th>
+							<th>Course Name</th>
+							<th>Course Type</th>
+						</tr>
+					</thead>
+					<tbody>
+				<?php
+				while ($row = $courses_result->fetch_assoc()) {
+				?>
+						<tr>
+							<td><?= $row['CourseCode'] ?></td>
+							<td><?= $row['CourseName'] ?></td>
+							<td>
+								<?php
+									if ($row['Online'] == 1)
+										echo '<span class="text-success">Online</span>';
+									else
+										echo '<span class="text-danger">Offline</span>';
+								?>
+							</td>
+						</tr>
+				<?php
+				}
+				$courses_result->data_seek(0); // Rewind result set pointer
+				?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+	<br>
+	<br>
+
+	<div class="form-container">
+		
+		<!-- Assign Category to Course Form -->
 		<div class="row">
 			<div class="col-lg-12">
 				<h4>Assign Category to Course</h4>
 			</div>
 		</div>
 
-		<!-- Create form for giving courses categories -->
 		<form
 			name="assignCategoryToCourse-form"
 			id="assignCategoryToCourse-form"
@@ -100,9 +221,7 @@
 						while ($row = $courses_result->fetch_assoc()) {
 							echo '<option value="' . $row['ID'] . '">' . $row['CourseName'] . '</option>';
 						}
-
-						// Reset pointer to beginning of result object
-						$courses_result->data_seek(0);
+						$courses_result->data_seek(0); // Rewind result set pointer
 						?>
 					</select>
 				</div>
@@ -142,21 +261,25 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<!-- Display all Category and Course associations -->
-				<table class="table table-striped table-bordered">
-					<tr>
-						<th>Course</th>
-						<th>Category</th>
-					</tr>
+				<table class="table table-striped table-bordered data-table">
+					<thead>
+						<tr>
+							<th>Course</th>
+							<th>Category</th>
+						</tr>
+					</thead>
+					<tbody>
 				<?php
 				while ($row = $courses_categories_result->fetch_assoc()) {
 				?>
-					<tr>
-						<td><?= $row['CourseName'] ?></td>
-						<td><?= $row['CategoryName'] ?></td>
-					</tr>
+						<tr>
+							<td><?= $row['CourseName'] ?></td>
+							<td><?= $row['CategoryName'] ?></td>
+						</tr>
 				<?php
 				}
 				?>
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -165,7 +288,7 @@
 	<br>
 	<br>
 
-	<!-- Create form for giving groups classes -->
+	<!-- Assign Course to Group Form -->
 	<div class="form-container">
 
 		<div class="row">
@@ -209,6 +332,7 @@
 						while ($row = $courses_result->fetch_assoc()) {
 							echo '<option value="' . $row['ID'] . '">' . $row['CourseName'] . '</option>';
 						}
+						$courses_result->data_seek(0); // Rewind result set pointer
 						?>
 					</select>
 				</div>
@@ -233,11 +357,14 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<!-- Display all Category and Course associations -->
-				<table class="table table-striped table-bordered">
-					<tr>
-						<th>Group</th>
-						<th>Course</th>
-					</tr>
+				<table class="table table-striped table-bordered data-table">
+					<thead>
+						<tr>
+							<th>Group</th>
+							<th>Course</th>
+						</tr>
+					</thead>
+					<tbody>
 				<?php
 				while ($row = $groups_courses_result->fetch_assoc()) {
 				?>
@@ -248,6 +375,7 @@
 				<?php
 				}
 				?>
+					</tbody>
 				</table>
 			</div>
 		</div>

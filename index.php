@@ -17,9 +17,12 @@
     <link href="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
     <link href="/bootstrap/scripts/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
     <link href="/bootstrap/css/animate.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" rel="stylesheet" type="text/css"/>
+
     <link href="../css/master.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
     <link href="../css/navbar-custom1.css" rel="stylesheet">
+
 
     <?php
         // Include functions
@@ -46,9 +49,10 @@
     <script src="/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Included Scripts -->
-    <script src="./js/main.js"></script>
     <script src="/bootstrap/scripts/DataTables-1.10.7/media/js/jquery.datatables.js"></script>
     <script src="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script src="./js/main.js"></script>
   </head>
   <body>
     <!-- Google Analytics Tracking -->

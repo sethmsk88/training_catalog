@@ -1,4 +1,5 @@
 <link href="./css/catalog.css" rel="stylesheet">
+<script src="./js/catalog.js"></script>
 
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
@@ -36,60 +37,106 @@ $groups_result = $stmt->get_result();
 $stmt = $conn->prepare($sel_courses_sql);
 $stmt->execute();
 $courses_result = $stmt->get_result();
+$numCourses = $courses_result->num_rows;
 
 ?>
 
 <div class="container">
 	<div class="row">
 		<div class="col-lg-2">
-			<h3>Category</h3>
-			<ul class="list-unstyled">
-				<?php
-					// Create list items for each category
-					while ($row = $categories_result->fetch_assoc()) {
-				?>
-					<li><?= $row['CategoryName'] ?></li>
-				<?php
-					}
-				?>
-			</ul>
+			<form
+				name="filterCategory-form"
+				id="filterCategory-form"
+				role="form"
+				method="post"
+				action="">
+
+				<h3>Category</h3>
+				<table class="filters">
+					<tbody>
+					<?php
+						// Create rows for each category
+						while ($row = $categories_result->fetch_assoc()) {
+					?>
+						<tr>
+							<td>
+								<input
+									id="category-<?= $row['ID'] ?>"
+									type="checkbox">
+							</td>
+							<td>
+								<label for="category-<?= $row['ID'] ?>"><?= $row['CategoryName'] ?></label>
+							</td>
+						</tr>
+					<?php
+						}
+					?>
+					</tbody>
+				</table>
+			</form>
 
 			<div class="divider"></div>
 
-			<h3 style="margin-top:10px;">Group</h3>
-			<ul class="list-unstyled">
-				<?php
-					// Create list items for each gruop
-					while ($row = $groups_result->fetch_assoc()) {
-				?>
-					<li><?= $row['GroupName'] ?></li>
-				<?php
-					}
-				?>
-			</ul>
+			<form
+				name="filterGroup-form"
+				id="filterGroup-form"
+				role="form"
+				method="post"
+				action="">
+
+				<h3 style="margin-top:10px;">Group</h3>
+				<table class="filters">
+					<tbody>
+					<?php
+						// Create rows for each group
+						while ($row = $groups_result->fetch_assoc()) {
+					?>
+						<tr>
+							<td>
+								<input
+									id="group-<?= $row['ID'] ?>"
+									type="checkbox">
+							</td>
+							<td>
+								<label for="group-<?= $row['ID'] ?>"><?= $row['GroupName'] ?></label>
+							</td>
+						</tr>
+					<?php
+						}
+					?>
+					</tbody>
+				</table>
+			</form>
 		</div>
+
 		<div class="col-lg-10">
 			<div class="row">
-				<div class="col-lg-12">
+				<div class="col-lg-8">
 					<h2>Training Courses</h2>
+				</div>
+				<div class="col-lg-4" style="text-align:right;">
+					<h3><small><span id="numCourses"><?= $numCourses ?></span> results found</small></h3>
 				</div>
 			</div>
 			<br />
-			<?php
-				// Display all courses
-				while ($row = $courses_result->fetch_assoc()) {
-			?>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="course-container">
-						<h4><?= $row['CourseName'] ?></h4>
-						<?= $row['CourseDescr'] ?>
+
+			<div id="training_courses_ajax">
+				<?php
+					// Display all courses
+					while ($row = $courses_result->fetch_assoc()) {
+				?>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="course-container">
+							<h4><?= $row['CourseName'] ?></h4>
+							<?= $row['CourseDescr'] ?>
+						</div>
 					</div>
 				</div>
+				<?php
+					}
+				?>
 			</div>
-			<?php
-				}
-			?>
 		</div>
 	</div>
 </div>
