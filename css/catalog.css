@@ -24,6 +24,10 @@ table.filters tbody tr td:first-child{
 	padding-right:10px;
 }
 
+table.filters tbody tr td:last-child{
+	width: 100%;
+}
+
 table.filters tbody tr td label{
 	font-weight: normal;
 	cursor: pointer;
@@ -31,4 +35,10 @@ table.filters tbody tr td label{
 
 table.filters tbody tr:hover{
 	background-color: #ECF0CA;
+}
+
+.course-online,
+.course-offline{
+  float: right;
+  padding-right:8px;
 }

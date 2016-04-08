@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php'
 
 require_once "../includes/functions.php";
 
-if (isset($_POST['categoryIDs'], $_POST['groupIDs'])) {
+if (isset($_POST['categoryIDs'], $_POST['groupIDs'], $_POST['groupIDs'])) {
 
 	$where = ""; // where clause for sel_courses query
 
@@ -39,6 +39,26 @@ if (isset($_POST['categoryIDs'], $_POST['groupIDs'])) {
 				$where .= " OR ";
 
 			$where .= "g.Group_ID = " . $groupID;
+		}
+		$where .= ") ";
+	}
+
+	// If course types are present, build Online part of where clause
+	if (strlen($_POST['courseTypes']) > 0) {
+
+		// If where clause has clauses preceding this one, append AND
+		if (strlen($where) > 0)
+			$where .= "AND ";
+
+		$where .= "(";
+
+		// Add Online to where clause
+		foreach (explode(",", $_POST['courseTypes']) as $i => $courseType) {
+			// If not first courseType in array, append OR
+			if ($i > 0)
+				$where .= " OR ";
+
+			$where .= "t.Online = " . $courseType;
 		}
 		$where .= ")";
 	}

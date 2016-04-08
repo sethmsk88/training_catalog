@@ -107,6 +107,42 @@ $numCourses = $courses_result->num_rows;
 					</tbody>
 				</table>
 			</form>
+
+			<div class="divider"></div>
+
+			<form
+				name="filterCourseType-form"
+				id="filterCourseType-form"
+				role="form"
+				method="post"
+				action="">
+
+				<h3 style="margin-top:10px;">Course Type</h3>
+				<table class="filters">
+					<tbody>
+						<tr>
+							<td>
+								<input
+									id="online"
+									type="checkbox">
+							</td>
+							<td>
+								<label for="online">Online</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input
+									id="offline"
+									type="checkbox">
+							</td>
+							<td>
+								<label for="offline">Offline</label>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 		</div>
 
 		<div class="col-lg-10">
@@ -120,22 +156,11 @@ $numCourses = $courses_result->num_rows;
 			</div>
 			<br />
 
+			<!--
+				This div is updated with a new courses list each time the filters are changed
+			-->
 			<div id="training_courses_ajax">
-				<?php
-					// Display all courses
-					while ($row = $courses_result->fetch_assoc()) {
-				?>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="course-container">
-							<h4><?= $row['CourseName'] ?></h4>
-							<?= $row['CourseDescr'] ?>
-						</div>
-					</div>
-				</div>
-				<?php
-					}
-				?>
+				<?= generateCourseList($courses_result) ?>
 			</div>
 		</div>
 	</div>
