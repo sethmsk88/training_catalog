@@ -13,3 +13,7 @@ $.urlParam = function(name){
        return results[1] || 0;
     }
 }
+
+$(document).ready(function() {
+    $('.dropdown-toggle').dropdown();
+});

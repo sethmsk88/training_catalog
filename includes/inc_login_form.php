@@ -1,4 +1,4 @@
-<!-- Login Form (absolutely positioned) -->
+<!-- Login Form -->
 <div
 	id="login-container"
 	class="loginForm">

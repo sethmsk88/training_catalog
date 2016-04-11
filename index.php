@@ -43,6 +43,14 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <?php
+        // Start session or regenerate session id
+        sec_session_start();
+
+        // Check to see if User is logged in
+        $loggedIn = login_check($conn);
+    ?>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -53,6 +61,10 @@
     <script src="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
     <script src="./js/main.js"></script>
+
+    <!-- Scripts needed for login -->
+    <script src="./js/login.js"></script>
+    <script src="/bootstrap/js/sha512.js"></script>
   </head>
   <body>
     <!-- Google Analytics Tracking -->
@@ -91,11 +103,27 @@
                         <li id="homepage-link">
                             <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
                         </li>
+
+                        <?php if ($loggedIn) { ?>
                         <li id="catalogAdmin-link">
-                            <?php echo '<a id="navLink-catalogAdmin" href="./?page=catalog_admin">Admin</a>'; ?>
+                            <a id="navLink-catalogAdmin" href="./?page=catalog_admin">Admin</a>
                         </li>
+                        <?php } ?>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <?php if ($loggedIn) { ?>
+                        <li class="dropdown" style="cursor:pointer;">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><?= $_SESSION['firstName'] ?> <span class="glyphicon glyphicon-triangle-bottom" style="margin-left:4px;"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a id="settings-link" href="?page=settings">Settings</a>
+                                </li>
+                                <li>
+                                    <a id="logout-link" href="./content/act_logout.php"> Log out</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php } else { ?>
                         <li>
                             <div class="dropdown">
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Log in</a>
@@ -106,6 +134,7 @@
                                 </ul>
                             </div>
                         </li>
+                        <?php } ?>
                     </ul>
                 </div>
 
