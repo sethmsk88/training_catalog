@@ -17,7 +17,7 @@
     <link href="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
     <link href="/bootstrap/scripts/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
     <link href="/bootstrap/css/animate.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/dt/jqc-1.12.0,dt-1.10.11,r-2.0.2,se-1.1.2/datatables.min.css"/>
 
     <link href="../css/master.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
@@ -89,8 +89,7 @@
                         type="button"
                         class="navbar-toggle"
                         data-toggle="collapse"
-                        data-target="#navbarCollapse"
-                        >
+                        data-target="#navbarCollapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -100,8 +99,8 @@
                 <div id="navbarCollapse" class="collapse navbar-collapse">
                     <!-- Nav links -->
                     <ul class="nav navbar-nav">
-                        <li id="homepage-link">
-                            <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
+                        <li id="homepage-link" class="active">
+                            <a id="navLink-homepage" href="./?page=<?=$APP_homepage?>">Homepage</a>
                         </li>
 
                         <?php if ($loggedIn) { ?>

@@ -17,3 +17,8 @@ $.urlParam = function(name){
 $(document).ready(function() {
     $('.dropdown-toggle').dropdown();
 });
+
+// remove active class from nav bar links
+$('.nav li').each(function() {
+  $(this).removeClass('active');
+});
