@@ -1,0 +1,44 @@
+.course-container{
+	border-top: 1px solid #999;
+	padding-top: 2px;
+	padding-bottom: 16px;
+}
+
+.divider{
+	width: 100%;
+	border-top: 1px solid #999;
+}
+
+table.filters tbody tr td{
+	vertical-align: top;
+	padding: 5px 0;
+	cursor: pointer;
+}
+
+table.filters tbody tr td input[type="checkbox"]{
+	cursor: pointer;
+}
+
+table.filters tbody tr td:first-child{
+	padding-left:2px;
+	padding-right:10px;
+}
+
+table.filters tbody tr td:last-child{
+	width: 100%;
+}
+
+table.filters tbody tr td label{
+	font-weight: normal;
+	cursor: pointer;
+}
+
+table.filters tbody tr:hover{
+	background-color: #ECF0CA;
+}
+
+.course-online,
+.course-offline{
+  float: right;
+  padding-right:8px;
+}

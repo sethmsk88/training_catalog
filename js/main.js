@@ -13,3 +13,12 @@ $.urlParam = function(name){
        return results[1] || 0;
     }
 }
+
+$(document).ready(function() {
+    $('.dropdown-toggle').dropdown();
+});
+
+// remove active class from nav bar links
+$('.nav li').each(function() {
+  $(this).removeClass('active');
+});
