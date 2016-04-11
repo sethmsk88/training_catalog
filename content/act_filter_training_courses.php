@@ -1,4 +1,10 @@
 <?php
+/***  CHECK IF PAGE WAS POSTED TO  ***/
+if (!isset($_SERVER["REQUEST_METHOD"]) ||
+	$_SERVER["REQUEST_METHOD"] != "POST") {
+	exit;
+}
+
 // Connect to database
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
 

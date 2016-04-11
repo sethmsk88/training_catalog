@@ -1,4 +1,10 @@
 <?php
+	// TEST LOGGED IN
+	if (!isset($loggedIn) || !$loggedIn) {
+		include './includes/inc_not_authorized.php';
+		exit;
+	}
+
 	// Connect to database
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
 

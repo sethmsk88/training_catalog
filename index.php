@@ -204,7 +204,7 @@
 			include $filePath;
 		}
 		else{
-			echo '<h2>404 Error</h2>Page does not exist';
+			include './includes/inc_404.php';
 		}
     ?>
 
