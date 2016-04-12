@@ -46,26 +46,45 @@ else if (isset($_POST['course_1'], $_POST['category'])) {
 	$param_int_Course_ID = $_POST['course_1'];
 	$param_int_Category_ID = $_POST['category'];
 
-	// Insert course category
-	$ins_course_category = "
-		INSERT INTO hrodt.training_course_has_category (Course_ID, Category_ID)
-		VALUES (?,?)
+	// Check for duplicate entry
+	$sel_course_category = "
+		SELECT *
+		FROM hrodt.training_course_has_category
+		WHERE Course_ID = ? AND Category_ID = ?
 	";
 
-	// Insert course category pair into table
-	if (!$stmt = $conn->prepare($ins_course_category)) {
-		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
-	} else if (!$stmt->bind_param('ii',
-		$param_int_Course_ID,
-		$param_int_Category_ID)) {
-		echo 'Binding params failed: (' . $stmt->errno . ') ' . $stmt->error;
-	} else if (!$stmt->execute()) {
-		echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
-	} else {
-		$stmt->store_result();
+	$stmt = $conn->prepare($sel_course_category);
+	$stmt->bind_param('ii', $param_int_Course_ID, $param_int_Category_ID);
+	$stmt->execute();
+	$stmt->store_result();
 
-		if ($stmt->affected_rows == 1) {
-			echo '<div class="text-success">Category Assigned to Course</div>';
+	// If duplicate entry exists
+	if ($stmt->num_rows > 0) {
+		// Display error message
+		echo '<div class="text-danger">Error: This association already exists</div>';
+	}
+	else {
+		// Insert course category
+		$ins_course_category = "
+			INSERT INTO hrodt.training_course_has_category (Course_ID, Category_ID)
+			VALUES (?,?)
+		";
+
+		// Insert course category pair into table
+		if (!$stmt = $conn->prepare($ins_course_category)) {
+			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+		} else if (!$stmt->bind_param('ii',
+			$param_int_Course_ID,
+			$param_int_Category_ID)) {
+			echo 'Binding params failed: (' . $stmt->errno . ') ' . $stmt->error;
+		} else if (!$stmt->execute()) {
+			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
+		} else {
+			$stmt->store_result();
+
+			if ($stmt->affected_rows == 1) {
+				echo '<div class="text-success">Category Assigned to Course</div>';
+			}
 		}
 	}
 }
@@ -76,26 +95,47 @@ else if (isset($_POST['group'], $_POST['course_2'])) {
 	$param_int_Group_ID = $_POST['group'];
 	$param_int_Course_ID = $_POST['course_2'];
 
-	// Insert group course
-	$ins_group_course = "
-		INSERT INTO hrodt.training_group_has_training_course (Group_ID, Course_ID)
-		VALUES (?,?)
+	// Check for duplicate entry
+	$sel_group_course = "
+		SELECT *
+		FROM hrodt.training_group_has_training_course
+		WHERE Group_ID = ? AND Course_ID = ?
 	";
 
-	// Insert group course pair into table
-	if (!$stmt = $conn->prepare($ins_group_course)) {
+	if (!$stmt = $conn->prepare($sel_group_course)) {
 		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
-	} else if (!$stmt->bind_param('ii',
-		$param_int_Group_ID,
-		$param_int_Course_ID)) {
-		echo 'Binding params failed: (' . $stmt->errno . ') ' . $stmt->error;
-	} else if (!$stmt->execute()) {
-		echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
-	} else {
-		$stmt->store_result();
+	}
+	$stmt->bind_param('ii', $param_int_Group_ID, $param_int_Course_ID);
+	$stmt->execute();
+	$stmt->store_result();
 
-		if ($stmt->affected_rows == 1) {
-			echo '<div class="text-success">Course Assigned to Group</div>';
+	// If duplicate entry exists
+	if ($stmt->num_rows > 0) {
+		// Display error message
+		echo '<div class="text-danger">Error: This association already exists</div>';
+	}
+	else {
+		// Insert group course
+		$ins_group_course = "
+			INSERT INTO hrodt.training_group_has_training_course (Group_ID, Course_ID)
+			VALUES (?,?)
+		";
+
+		// Insert group course pair into table
+		if (!$stmt = $conn->prepare($ins_group_course)) {
+			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+		} else if (!$stmt->bind_param('ii',
+			$param_int_Group_ID,
+			$param_int_Course_ID)) {
+			echo 'Binding params failed: (' . $stmt->errno . ') ' . $stmt->error;
+		} else if (!$stmt->execute()) {
+			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
+		} else {
+			$stmt->store_result();
+
+			if ($stmt->affected_rows == 1) {
+				echo '<div class="text-success">Course Assigned to Group</div>';
+			}
 		}
 	}
 }
@@ -105,5 +145,5 @@ else {
 	// Display error message
 	echo '<div class="text-danger">There was an error during submission</div>';
 }
-
 ?>
+<br />
